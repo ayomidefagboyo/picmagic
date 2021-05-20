@@ -33,3 +33,13 @@ func main() {
 			}
 			wImg.Set(x,y,c)
 }
+	}
+	ext:= filepath.Ext(imgPath)
+	name := strings.TrimSuffix(filepath.Base(imgPath), ext)
+	newImagePath := fmt.Sprintf("%s_new%s", filepath.Dir(imgPath), name,ext)
+	fg , err := os.Create(newImagePath)
+	defer fg.Close()
+	check(err)
+	err = jpeg.Encode(fg, wImg, nil)
+	check(err)
+}
