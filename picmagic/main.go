@@ -19,4 +19,17 @@ func main() {
 	f , err := os.Open(imgPath) check(err) defer f.Close()
 	size := img.Bounds().size()
 	rect := image.Rect(0,0,Size.X, size.Y)
+	for x := 0 ; x < size.X ; x++{
+		for y := 0 ; y <size.Y ; y++{
+			pixel:= img.At{x,y}
+			originalColour := color.RGBAModel.Convert(pixel).(color.RGBA)
+
+			r := float64(originalColour.R) * 0.921342
+			b := float64(originalColour.B) * 0.932433
+			g := float64(originalColour.G) * 0.942123
+			gray := uint8((r + b + g )/3)
+			c := color.RGBA{
+				R: grey, G: grey , B: grey, A: originalColour,
+			}
+			wImg.Set(x,y,c)
 }
